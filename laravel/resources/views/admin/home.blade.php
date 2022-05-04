@@ -16,8 +16,9 @@
 
                     {{ __('You are logged in!') }}
                 </div>
-                {{-- <a href=" {{route('admin.post.index')}} ">Posts</a> --}}
             </div>
+            <a class="btn btn-primary" href=" {{route('admin.posts.index')}} ">Elenco Post</a>
+            <a class="btn btn-primary" href=" {{route('admin.posts.create')}} ">Crea Articolo</a>
         </div>
     </div>
 </div>

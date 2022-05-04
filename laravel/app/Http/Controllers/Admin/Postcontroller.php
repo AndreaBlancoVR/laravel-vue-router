@@ -42,39 +42,46 @@ class Postcontroller extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:150',
-            // 'content' => 'required|string',
-            // 'published_at' => 'nullable|date|before_or_equal:today',
+            'content' => 'required|string',
+            'published_at' => 'nullable|date|before_or_equal:today',
         ]);
 
         $data = $request->all();
 
-        $slug = Str::slug( $data['title'] );
+        $slug = Post::getUniqueSlug( $data['title'] );
+        
+        // $slug = Str::slug( $data['title'] );
+        // $slug_base = $slug;
+        // $counter = 1;
 
-        $slug_base = $slug;
+        // $post_present = Post::where('slug', $slug)->first();
 
-        $counter = 1;
+        // while( $post_present ) {
+        //     $slug = $slug_base . '-' . $counter;
+        //     $counter++;
+        //     $post_present = Post::where('slug',$slug)->first();
+        // }
 
-        $post_present = Post::where('slug', $slug)->first();
+        $post = new Post();
+        $post->fill( $data );
+        $post->slug = $slug;
 
-        while( $post_present ) {
-            $slug = $slug_base . '-' . $counter;
-            $counter++;
-            $post_present = Post::where('slug', $slug)->first();
-        }
+        $post->save();
 
-        dd($request->all());
+        return redirect()->route('admin.posts.index');
+        // dd($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -82,7 +89,7 @@ class Postcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         return view('admin.posts.edit', compact('post'));
     }
@@ -94,9 +101,47 @@ class Postcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:150',
+            'content' => 'required|string',
+            'published_at' => 'nullable|date|before_or_equal:today',
+        ]); 
+
+
+        $data = $request->all();
+
+        $slug = Post::getUniqueSlug( $data['title'] );
+
+        if( $post->title != $data['title'] ) {
+
+            $slug = Post::getUniqueSlug( $data['title'] );
+            // $slug = Str::slug( $data['title'] );
+            // $slug_base = $slug;
+            // $counter = 1;
+
+            // $post_present = Post::where('slug', $slug)->first();
+
+            // while( $post_present ) {
+            //     $slug = $slug_base . '-' . $counter;
+            //     $counter++;
+            //     $post_present = Post::where('slug',$slug)->first();
+            // }
+            $data['slug'] = $slug;
+        }
+
+        $data['slug'] = $slug;
+        $post->update($data);
+        
+        // dd($data);
+        
+        
+        return redirect()->route('admin.posts.index');
+        // $post = new Post();
+
+        
+
     }
 
     /**
@@ -105,8 +150,10 @@ class Postcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('admin.posts.index') ;
     }
 }
