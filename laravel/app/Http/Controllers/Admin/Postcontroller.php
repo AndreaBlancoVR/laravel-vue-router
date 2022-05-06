@@ -131,7 +131,7 @@ class Postcontroller extends Controller
             $data['slug'] = $slug;
         }
 
-        $data['slug'] = $slug;
+        // $data['slug'] = $slug;
         $post->update($data);
         
         // dd($data);
