@@ -34,6 +34,22 @@
         </div>
 
         <div class="form-group">
+            <label for="category_id">Categoria</label>
+            <select class="form-control" @error('category_id') is-invalid @enderror name="category_id" id="category_id">
+                <option value="">-- nessuna --</option>
+                @foreach ($categories as $category)
+                    {{-- non funziona l'operatore terniario e non capisco perchè 
+                   <option {{ old('category_id') && old('category_id') == $category->id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
+                   --}}
+                   <option {{ old('category_id', optional($post->category)->id) == $category->id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>  
+                @endforeach
+            </select> 
+            @error('category_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror     
+        </div>
+
+        <div class="form-group">
             <label for="content">Contenuto dell'articolo*</label>
             {{-- <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" aria-describedby="emailHelp"> --}}
             <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" rows="30"> {{ old('content') ?: $post->content}} </textarea>

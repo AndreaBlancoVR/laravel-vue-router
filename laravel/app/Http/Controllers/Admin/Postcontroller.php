@@ -17,7 +17,7 @@ class Postcontroller extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->limit(20)->get();
+        $posts = Post::with('category')->orderBy('created_at', 'desc')->limit(20)->get();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -94,7 +94,9 @@ class Postcontroller extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('admin.posts.edit', compact('post','categories'));
     }
 
     /**
@@ -110,6 +112,7 @@ class Postcontroller extends Controller
             'title' => 'required|string|max:150',
             'content' => 'required|string',
             'published_at' => 'nullable|date|before_or_equal:today',
+            'category_id' => 'nullable|exists:categories,id',
         ]); 
 
 
