@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Tag;
+use App\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\support\Str;
-use App\Post;
+
 
 class Postcontroller extends Controller
 {
@@ -17,7 +19,7 @@ class Postcontroller extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category')->orderBy('created_at', 'desc')->limit(20)->get();
+        $posts = Post::with('category', 'tags')->orderBy('created_at', 'desc')->limit(20)->get();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -30,8 +32,10 @@ class Postcontroller extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
+        
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -47,6 +51,7 @@ class Postcontroller extends Controller
             'content' => 'required|string',
             'published_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
         ]);
 
         $data = $request->all();
@@ -95,8 +100,9 @@ class Postcontroller extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post','categories'));
+        return view('admin.posts.edit', compact('post','categories', 'tags'));
     }
 
     /**
@@ -113,6 +119,7 @@ class Postcontroller extends Controller
             'content' => 'required|string',
             'published_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
         ]); 
 
 
@@ -137,7 +144,17 @@ class Postcontroller extends Controller
             $data['slug'] = $slug;
         }
 
-        // $data['slug'] = $slug;
+        $ids = array_key_exists('tags', $data) ? $data['tags'] : [];
+        $post->tags()->sync( $ids );
+
+        //     OPPURE
+        // if( array_key_exists('tags', $data) ) {
+        //     $post->tags()->sync( $data['tags'] );
+        // } else {
+        //     $post->tags()->sync( [] );
+        // }
+
+
         $post->update($data);
         
         // dd($data);

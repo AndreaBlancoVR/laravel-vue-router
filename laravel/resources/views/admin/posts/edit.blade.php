@@ -21,7 +21,8 @@
 
 <div class="container">
 
-    
+    {{-- TITOLO --}}
+
     <form action="{{ route('admin.posts.update',$post) }}" method= "POST">
         @csrf
         @method('PUT')
@@ -32,6 +33,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        {{-- CATEGORIE --}}
 
         <div class="form-group">
             <label for="category_id">Categoria</label>
@@ -48,6 +51,21 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror     
         </div>
+        
+        {{-- TAGS --}}
+        <label for="">Tags</label>
+        <div class="d-flex" style="gap: 1rem;">
+            @foreach($tags as $tag)
+                <div class="form-group form-check">
+                    <input type="checkbox" {{ $post->tags->contains( $tag ) ? 'checked' : '' }} class="form-check-input" value="{{ $tag->id }}"name="tags[]" id="tags-{{ $tag->id }}">
+                    <label class="form-check-label"for="tags-{{ $tag->id }}">{{ $tag->name }}</label>
+                </div>
+            @endforeach
+        </div>
+        @error('tags')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+        {{-- CONTENUTO ARTICOLO --}}
 
         <div class="form-group">
             <label for="content">Contenuto dell'articolo*</label>
@@ -57,6 +75,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        {{-- DATA PUBBLICAZIONE --}}
 
         <div class="form-group">
             <label for="published_at">Data di pubblicazione</label>
