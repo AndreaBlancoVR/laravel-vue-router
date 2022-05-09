@@ -31,3 +31,15 @@ Route::prefix('admin')
         Route::resource('posts', 'Postcontroller')->except(['show']);
     
     });
+
+
+    // tutto quello che non verrà intercettato 
+    // dalle rotte precedenti finirà nella seguente
+
+// Route::get('{any?}', function($param) {
+//     return view('guest.home');
+//     })->where('any', '.*');
+
+Route::fallback(function() {
+    return view('guest.home');
+    });
