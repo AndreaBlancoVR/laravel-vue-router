@@ -51,7 +51,7 @@ class Postcontroller extends Controller
             'content' => 'required|string',
             'published_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags.*' => 'exists:tags,id'
         ]);
 
         $data = $request->all();
@@ -74,7 +74,13 @@ class Postcontroller extends Controller
         $post->fill( $data );
         $post->slug = $slug;
 
+        // $ids = array_key_exists('tags', $data) ? $data['tags'] : [];
+        // $post->tags()->sync( $ids );
+
         $post->save();
+
+        $ids = array_key_exists('tags', $data) ? $data['tags'] : [];
+        $post->tags()->sync( $ids );
 
         return redirect()->route('admin.posts.index');
         // dd($request->all());
@@ -119,7 +125,7 @@ class Postcontroller extends Controller
             'content' => 'required|string',
             'published_at' => 'nullable|date|before_or_equal:today',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags.*' => 'exists:tags,id'
         ]); 
 
 
