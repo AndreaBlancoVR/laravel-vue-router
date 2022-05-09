@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -22,6 +23,16 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public static function getDate( $d, $format = 'd/m/Y' ) {
+
+        if($d) {
+            $date = Carbon::createFromFormat('Y-m-d H:i:s',$d);
+            return $date->format( $format );
+        } else {
+            return Carbon::now();
+        }
     }
 
 

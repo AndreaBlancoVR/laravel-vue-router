@@ -15,7 +15,8 @@
                     <th scope="col">Slug</th>
                     <th scope="col">Tag</th>
                     <th scope="col">Categoria</th>
-                    <th scope="col">Data pubblicazione</th>
+                    <th scope="col">Ultima Modifica</th>
+                    <th scope="col">Ultima Modifica</th>
                     <th scope="col">Data creazione</th>
                     <th scope="col"></th>
                 </tr>
@@ -32,8 +33,10 @@
                             @endforeach
                         </td>
                         <td>{{ $post->category ? $post->category->name : '' }}</td>
-                        <td>{{ $post->published_at }}</td>
-                        <td>{{ $post->created_at }}</td>
+                        {{-- <td>{{ $post->published_at }}</td> --}}
+                        <td>{{ $post->published_at ? Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->locale('it-IT')->diffForHumans() : '' }}</td>
+                        <td>{{ App\Post::getDate($post->published_at, 'l j F') }}</td>
+                        <td>{{ App\Post::getDate($post->created_at) }}</td>
                         <td>
                             <a class="btn btn-small btn-warning" href="{{ route('admin.posts.edit', $post) }}" >Edit</a>
                             <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
