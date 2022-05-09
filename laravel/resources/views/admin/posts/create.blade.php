@@ -10,6 +10,8 @@
 
     <form action="{{ route('admin.posts.store') }}" method= "POST">
         @csrf
+        
+            {{-- TITOLO --}}
 
         <div class="form-group">
             <label for="title">Titolo*</label>
@@ -18,6 +20,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+           {{-- CATEGORIE --}}
 
         <div class="form-group">
             <label for="category_id">Categoria</label>
@@ -33,7 +37,7 @@
                 
         </div>
 
-        {{-- NON FUNZIONA --}}
+        {{-- TAGS --}}
         <label for="">Tags</label>
         <div class="d-flex" style="gap: 1rem;">
             @foreach($tags as $tag)
@@ -44,6 +48,7 @@
             @endforeach
         </div>
 
+         {{-- CONTENUTO ARTICOLO --}}
 
         <div class="form-group">
             <label for="content">Contenuto dell'articolo*</label>
@@ -53,6 +58,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        {{-- DATA PUBBLICAZIONE --}}
 
         <div class="form-group">
             <label for="published_at">Data di pubblicazione</label>
