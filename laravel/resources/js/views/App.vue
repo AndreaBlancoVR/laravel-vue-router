@@ -1,13 +1,30 @@
 <template>
     <div>
-        
+        <header>
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>Posts</li>
+                    <li>Categories</li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <PostsIndex />
+        </main>
+
+        <footer>
+            &copy; Boolpress 2022
+        </footer>
     </div>
 </template>
 
 <script>
-export default {
-    data() {
-        
+    import PostsIndex from './PostsIndex.vue'
+
+    export default {
+        components: {
+            PostsIndex,
     }
 }
 </script>

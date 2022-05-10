@@ -1,0 +1,18 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: currentColor;
+}
+
+ul {
+  list-style: none;
+}
+
