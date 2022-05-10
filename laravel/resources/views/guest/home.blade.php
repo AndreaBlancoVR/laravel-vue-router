@@ -23,5 +23,7 @@
     <div id="root">
         Qui verrà montato Vue
     </div>
+
+    <script src="{{ asset('js/front.js') }}"></script>
 </body>
 </html>
