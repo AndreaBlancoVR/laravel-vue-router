@@ -10,7 +10,10 @@
             </nav>
         </header>
         <main>
-            <PostsIndex />
+
+            <!-- <PostsIndex /> -->
+            <router-view></router-view>
+
         </main>
 
         <footer>
@@ -20,11 +23,11 @@
 </template>
 
 <script>
-    import PostsIndex from './PostsIndex.vue'
+    // import PostsIndex from './PostsIndex.vue'
 
     export default {
         components: {
-            PostsIndex,
+            // PostsIndex,
     }
 }
 </script>

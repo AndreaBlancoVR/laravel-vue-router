@@ -37369,9 +37369,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-api\laravel\resources\js\admin.js */"./resources/js/admin.js");
-__webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-api\laravel\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-api\laravel\resources\sass\front.scss */"./resources/sass/front.scss");
+__webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-vue-router\laravel\resources\js\admin.js */"./resources/js/admin.js");
+__webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-vue-router\laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\andre\BOOLEAN\LARAVEL\laravel-vue-router\laravel\resources\sass\front.scss */"./resources/sass/front.scss");
 
 
 /***/ })
