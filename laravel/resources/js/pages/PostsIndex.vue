@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div class="container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-10">
             <PostCard v-for="el_post in posts" :key="el_post.id" :post="el_post"/>
             <!-- <div v-for="post in posts" :key="post.id">
                 {{ post.title }}

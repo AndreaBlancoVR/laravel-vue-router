@@ -1,11 +1,15 @@
 <template>
     <div class="app bg-zinc-800 text-white">
         <header>
-            <nav>
-                <ul>
+            <nav class="py-6 flex gap-4 items-center">
+                <ul class="contents">
                     <li>Home</li>
-                    <li>Posts</li>
-                    <li>Categories</li>
+                    <li>
+                        <router-link to="/posts">Elenco Post</router-link>
+                    </li>
+                    <li>
+                        <router-link :to=" { name: 'contact' } ">Contatti</router-link>
+                    </li>
                 </ul>
             </nav>
         </header>

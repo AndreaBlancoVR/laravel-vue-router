@@ -55,19 +55,20 @@
         {{-- TAGS --}}
         <label for="">Tags</label>
         <div class="d-flex" style="gap: 1rem;">
-            @foreach($tags as $index => $tag)
+            @foreach($tags as $tag)
                 <div class="form-group form-check">
-                    <input type="checkbox" {{ $post->tags->contains( $tag ) ? 'checked' : '' }} class="form-check-input" value="{{ $tag->id }}"name="tags[{{ $index }}]" id="tags-{{ $tag->id }}">
-                    <label class="form-check-label"for="tags-{{ $tag->id }}">{{ $tag->name }}</label>
-                    @error('tags.{{ $index }}')
+                    <input type="checkbox" {{ $post->tags->contains( $tag ) ? 'checked' : '' }} class="form-check-input" value="{{ $tag->id }}"name="tags[{{$loop->index}}]" id="tags-{{ $tag->id }}">
+                    <label class="form-check-label"for="tags-{{ $tag->id }}">{{ $tag->name }}</label>               
+                    @error('tags.{{ $loop->index }}')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
             @endforeach
         </div>
-        {{-- @error('tags')
+        {{-- @dump($errors->all()) --}}
+        @error('tags.*')
             <div class="text-danger">{{ $message }}</div>
-        @enderror --}}
+        @enderror
 
         {{-- CONTENUTO ARTICOLO --}}
 
