@@ -28,20 +28,23 @@ export default {
     methods: {
         fetchPost() {
 
-            axios.get(`/api/posts/${ this.$route.params.slug }`)
-            .then(res => {
+            axios
+            .get(`/api/posts/${ this.$route.params.slug }`)
+            .then( res => {
                 const { post } = res.data
                 this.post = post
                 this.loading = false
             })
             .catch( err => {
                 console.warn( err )
+                //REDIRECT TO 404
+                this.$router.push('/404')
             })
         }
     },
 
     beforeMount() {
-        fetchPost()    
+        this.fetchPost()    
     }
 }
 </script>

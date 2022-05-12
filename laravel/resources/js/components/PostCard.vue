@@ -16,7 +16,7 @@
             <router-link 
             class="bg-orange-400 rounded-md px-3 py-1 text-sm my-3"
             tag="button" 
-            :to="{ name: 'post.show', params: { slug: post.slug }}">
+            :to="{ name: 'posts.show', params: { slug: post.slug }}">
                 Leggi articolo
             </router-link>
         </div>
